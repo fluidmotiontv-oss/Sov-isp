@@ -8,6 +8,7 @@ import SolarTelemetry from './components/SolarTelemetry';
 import SubscriberManager from './components/SubscriberManager';
 import DnsPrivacyGuard from './components/DnsPrivacyGuard';
 import HardwareBlueprint from './components/HardwareBlueprint';
+import NetworkOverview from './components/NetworkOverview';
 import AddNodeModal from './components/AddNodeModal';
 import WireGuardModal from './components/WireGuardModal';
 
@@ -76,6 +77,16 @@ export default function App() {
               subscribers={subscribers}
               onSelectTab={setActiveTab}
               onAddNodeModal={() => setShowAddNodeModal(true)}
+            />
+          )}
+
+          {activeTab === 'network-overview' && (
+            <NetworkOverview 
+              nodes={nodes} 
+              links={links}
+              onAddNodeModal={() => setShowAddNodeModal(true)}
+              simulationState={simulationState}
+              onToggleLinkState={handleToggleLinkState}
             />
           )}
 

@@ -1,9 +1,10 @@
 import React from 'react';
-import { LayoutDashboard, Network, Globe, Sun, Users, ShieldAlert, Cpu } from 'lucide-react';
+import { LayoutDashboard, Network, Share2, Globe, Sun, Users, ShieldAlert, Cpu } from 'lucide-react';
 
 export default function Sidebar({ activeTab, setActiveTab }) {
   const tabs = [
     { id: 'overview', label: 'Command Center', icon: LayoutDashboard },
+    { id: 'network-overview', label: 'Network Overview', icon: Share2 },
     { id: 'topology', label: 'Mesh Topology Map', icon: Network },
     { id: 'bgp', label: 'BGP Autonomous Core', icon: Globe },
     { id: 'solar', label: 'Solar & Power Telemetry', icon: Sun },

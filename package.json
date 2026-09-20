@@ -12,6 +12,7 @@
   "dependencies": {
     "canvas-confetti": "^1.9.4",
     "chart.js": "^4.5.1",
+    "d3": "^7.9.0",
     "leaflet": "^1.9.4",
     "lucide-react": "^1.26.0",
     "qrcode.react": "^4.2.0",

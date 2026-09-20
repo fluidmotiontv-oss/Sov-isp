@@ -3,9 +3,7 @@ import { Network, ShieldCheck, Zap, AlertTriangle, Radio, Activity, RefreshCw } 
 
 export default function Navbar({ 
   nodes, 
-  links, 
   simulationState, 
-  setSimulationState, 
   onTriggerSimulation,
   onResetSimulation
 }) {

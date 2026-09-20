@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Activity, Server, Radio, Sun, Users, Shield, ArrowUpRight, ArrowDownRight, Zap, RefreshCw, CheckCircle2, AlertTriangle, Plus, Globe } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Activity, Server, Sun, Users, Shield, ArrowUpRight, ArrowDownRight, Zap, CheckCircle2, Plus, Globe, Network } from 'lucide-react';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
-export default function DashboardOverview({ nodes, links, bgpPeers, subscribers, onSelectTab, onAddNodeModal }) {
+export default function DashboardOverview({ nodes = [], subscribers = [], onSelectTab, onAddNodeModal }) {
   const [trafficHistory, setTrafficHistory] = useState(() => {
     const times = [];
     const rx = [];
@@ -108,9 +108,14 @@ export default function DashboardOverview({ nodes, links, bgpPeers, subscribers,
             <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Operating 7 Mesh Nodes • 110 Sovereign Households Connected • Zero Single Points of Failure</div>
           </div>
         </div>
-        <button className="btn-primary" onClick={onAddNodeModal}>
-          <Plus size={16} /> Deploy New Mesh Node
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+          <button id="btn-goto-network-overview" className="btn-secondary" onClick={() => onSelectTab('network-overview')}>
+            <Network size={16} color="#34d399" /> Network Overview (D3)
+          </button>
+          <button id="btn-deploy-node-modal" className="btn-primary" onClick={onAddNodeModal}>
+            <Plus size={16} /> Deploy New Mesh Node
+          </button>
+        </div>
       </div>
 
       {/* KPI Cards Grid */}
@@ -130,7 +135,7 @@ export default function DashboardOverview({ nodes, links, bgpPeers, subscribers,
           </div>
         </div>
 
-        <div className="glass-panel" style={{ padding: '18px', cursor: 'pointer' }} onClick={() => onSelectTab('topology')}>
+        <div id="card-mesh-nodes-overview" className="glass-panel" style={{ padding: '18px', cursor: 'pointer' }} onClick={() => onSelectTab('network-overview')}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--text-secondary)', marginBottom: '8px' }}>
             <span style={{ fontSize: '0.8rem', fontWeight: 600, textTransform: 'uppercase' }}>Active Mesh Nodes</span>
             <Server size={18} color="#22d3ee" />
@@ -138,8 +143,8 @@ export default function DashboardOverview({ nodes, links, bgpPeers, subscribers,
           <div className="font-mono" style={{ fontSize: '1.6rem', fontWeight: 800 }}>
             {nodes.length} <span style={{ fontSize: '0.9rem', color: '#34d399' }}>Nodes</span>
           </div>
-          <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '6px' }}>
-            1 Gateway • 2 Solar Towers • 1 IXP • 1 Sat
+          <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '6px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <span>Interactive D3 Topology</span> →
           </div>
         </div>
 
@@ -162,7 +167,7 @@ export default function DashboardOverview({ nodes, links, bgpPeers, subscribers,
             <Users size={18} color="#a78bfa" />
           </div>
           <div className="font-mono" style={{ fontSize: '1.6rem', fontWeight: 800, color: '#a78bfa' }}>
-            110 <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Peers</span>
+            {subscribers.length > 0 ? subscribers.length : 110} <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Peers</span>
           </div>
           <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '6px' }}>
             100% WireGuard Mesh Encrypted
